@@ -8,3 +8,4 @@ Minimal Vite project scaffolded for the Stone Loads homepage.
 npm install
 npm run dev
 ```
+# Stone9.vercel.app
