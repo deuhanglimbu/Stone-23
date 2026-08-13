@@ -224,7 +224,7 @@ app.innerHTML = `
           </div>
         </article>
 
-        <article class="product-card out-of-stock">
+        <article class="product-card pink-card out-of-stock">
           <div class="image-wrap">
             <img src="https://www.panellingcentre.ie/images/200731-PC-Website-Worktops-600x600-V1-silestone1.jpg" alt="Silestone product" />
             <span class="stock-badge">Out of stock</span>
@@ -313,30 +313,7 @@ app.innerHTML = `
               </label>
             </div>
 
-            <div class="stone-preview-box">
-              <div class="stone-preview-header">
-                <div class="stone-preview-label">Selected Stone Image</div>
-                <div class="stone-preview-name">Granit stone</div>
-              </div>
-              <div class="stone-preview-frame">
-                <img id="order-preview-image" src="" alt="Selected stone" />
-              </div>
-            </div>
-
           </div>
-
-          <aside class="order-design-panel">
-            <div class="canvas-toolbar">
-              <button type="button" class="tool-btn active" data-tool="pen">Pen</button>
-              <button type="button" class="tool-btn" data-tool="line">Line</button>
-              <button type="button" class="tool-btn" data-tool="rect">Rectangle</button>
-              <button type="button" class="tool-btn" data-tool="eraser">Eraser</button>
-              <button type="button" class="tool-btn" data-tool="clear">Clear</button>
-              <input id="draw-color" type="color" value="#1f2937" aria-label="Choose drawing color" />
-              <input id="draw-size" type="range" min="1" max="18" value="4" aria-label="Choose brush size" />
-            </div>
-            <canvas id="stone-design-canvas" width="320" height="260" aria-label="Stone design drawing area"></canvas>
-          </aside>
         </div>
 
         <div class="sheet-actions">
@@ -618,182 +595,6 @@ if (saveDetailPageBtn) {
 
 renderDetailDocumentPages();
 
-const stoneDesignCanvas = document.getElementById('stone-design-canvas');
-const drawColorInput = document.getElementById('draw-color');
-const drawSizeInput = document.getElementById('draw-size');
-const drawingToolButtons = Array.from(document.querySelectorAll('.tool-btn'));
-
-if (stoneDesignCanvas) {
-  const ctx = stoneDesignCanvas.getContext('2d');
-  let activeTool = 'pen';
-  let isDrawing = false;
-  let startX = 0;
-  let startY = 0;
-  let lastX = 0;
-  let lastY = 0;
-
-  function setCanvasBackground() {
-    ctx.clearRect(0, 0, stoneDesignCanvas.width, stoneDesignCanvas.height);
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, stoneDesignCanvas.width, stoneDesignCanvas.height);
-  }
-
-  function updateStrokeStyle() {
-    const size = Number(drawSizeInput?.value || 4);
-    const color = drawColorInput?.value || '#1f2937';
-    ctx.lineWidth = size;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-  }
-
-  function setTool(toolName) {
-    activeTool = toolName;
-    drawingToolButtons.forEach(button => {
-      button.classList.toggle('active', button.dataset.tool === toolName);
-    });
-  }
-
-  function clearCanvas() {
-    setCanvasBackground();
-  }
-
-  function getCanvasPoint(event) {
-    const rect = stoneDesignCanvas.getBoundingClientRect();
-    const scaleX = stoneDesignCanvas.width / rect.width;
-    const scaleY = stoneDesignCanvas.height / rect.height;
-    return {
-      x: (event.clientX - rect.left) * scaleX,
-      y: (event.clientY - rect.top) * scaleY,
-    };
-  }
-
-  function drawLine(x1, y1, x2, y2) {
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-  }
-
-  function drawRect(x1, y1, x2, y2) {
-    ctx.beginPath();
-    ctx.rect(x1, y1, x2 - x1, y2 - y1);
-    ctx.stroke();
-  }
-
-  setCanvasBackground();
-  updateStrokeStyle();
-
-  drawingToolButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const toolName = button.dataset.tool;
-      if (toolName === 'clear') {
-        clearCanvas();
-        return;
-      }
-      setTool(toolName);
-    });
-  });
-
-  drawColorInput?.addEventListener('input', updateStrokeStyle);
-  drawSizeInput?.addEventListener('input', updateStrokeStyle);
-
-  stoneDesignCanvas.addEventListener('pointerdown', event => {
-    const point = getCanvasPoint(event);
-    isDrawing = true;
-    startX = point.x;
-    startY = point.y;
-    lastX = point.x;
-    lastY = point.y;
-    updateStrokeStyle();
-
-    if (activeTool === 'eraser') {
-      ctx.save();
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.lineWidth = Number(drawSizeInput?.value || 4) + 8;
-      ctx.beginPath();
-      ctx.moveTo(point.x, point.y);
-      return;
-    }
-
-    if (activeTool === 'pen') {
-      ctx.beginPath();
-      ctx.moveTo(point.x, point.y);
-    }
-  });
-
-  stoneDesignCanvas.addEventListener('pointermove', event => {
-    if (!isDrawing) return;
-    const point = getCanvasPoint(event);
-
-    if (activeTool === 'pen') {
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(point.x, point.y);
-      ctx.stroke();
-      lastX = point.x;
-      lastY = point.y;
-      return;
-    }
-
-    if (activeTool === 'eraser') {
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(point.x, point.y);
-      ctx.stroke();
-      lastX = point.x;
-      lastY = point.y;
-      return;
-    }
-
-    if (activeTool === 'line') {
-      const prev = stoneDesignCanvas.toDataURL();
-      const img = new Image();
-      img.onload = () => {
-        setCanvasBackground();
-        ctx.drawImage(img, 0, 0);
-        drawLine(startX, startY, point.x, point.y);
-      };
-      img.src = prev;
-      return;
-    }
-
-    if (activeTool === 'rect') {
-      const prev = stoneDesignCanvas.toDataURL();
-      const img = new Image();
-      img.onload = () => {
-        setCanvasBackground();
-        ctx.drawImage(img, 0, 0);
-        drawRect(startX, startY, point.x, point.y);
-      };
-      img.src = prev;
-    }
-  });
-
-  stoneDesignCanvas.addEventListener('pointerup', event => {
-    if (!isDrawing) return;
-    const point = getCanvasPoint(event);
-
-    if (activeTool === 'line') {
-      drawLine(startX, startY, point.x, point.y);
-    }
-
-    if (activeTool === 'rect') {
-      drawRect(startX, startY, point.x, point.y);
-    }
-
-    if (activeTool === 'eraser') {
-      ctx.restore();
-    }
-
-    isDrawing = false;
-  });
-
-  stoneDesignCanvas.addEventListener('pointerleave', () => {
-    isDrawing = false;
-  });
-}
 
 document.addEventListener('keydown', e => {
   if (imageModal.classList.contains('hidden')) return;
