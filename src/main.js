@@ -18,7 +18,6 @@ app.innerHTML = `
       <a href="#">Stone Types</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
-      <a href="#" class="nav-cta">Request a Load</a>
     </nav>
   </header>
 
@@ -26,7 +25,7 @@ app.innerHTML = `
     <section class="filters" id="marketplace">
       <input type="search" placeholder="Search for flagging, steps, etc..." />
       <div class="filter-buttons">
-        <button>All</button>
+        <button class="active">All</button>
         <button id="lioz-btn">Lioz</button>
         <button id="molenos-btn">Molenos</button>
         <button>Estarmos</button>
@@ -182,12 +181,12 @@ app.innerHTML = `
       <div class="product-grid single-feature">
         <article class="product-card">
           <div class="image-wrap">
-            <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-iwE41Et2XjPpgYPHGs3rRfOWmXnL7frEWKFI31Myrk2at5fimzh7x5rYHZ5Xizcs_Oc7833WR2bRtVjvm7osvjIng6SAymiYeWiRnpYXM4epFis4NOAYdSG2Fj-ykw0ZWYg0rTx9cJMx=s1360-w1360-h1020-rw" alt="Featured product 1" />
+            <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-iwE41Et2XjPpgYPHGs3rRfOWmXnL7frEWKFI31Myrk2at5fimzh7x5rYHZ5Xizcs_Oc7833WR2bRtVjvm7osvjIng6SAymiYeWiRnpYXM4epFis4NOAYdSG2Fj-ykw0ZWYg0rTx9cJMx=s1360-w1360-h1020-rw" alt="Section 1 Frame 1" />
           </div>
         </article>
         <article class="product-card">
           <div class="image-wrap">
-            <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl7T-cyn5ZZd8TtqHo2GvTK8lHBT3t8BFXTp_MwFO_aW8pxTj1NUBB5HeBVk2AYBvjhbyjnXvnIDbBaU_wbAlw9h9KyQVvUMQXFENOMPJc1CV_1s9qyzKikhSnIIHcGQvi9SzvvWKoXw0lz=s1360-w1360-h1020-rw" alt="Featured product 2" />
+            <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl7T-cyn5ZZd8TtqHo2GvTK8lHBT3t8BFXTp_MwFO_aW8pxTj1NUBB5HeBVk2AYBvjhbyjnXvnIDbBaU_wbAlw9h9KyQVvUMQXFENOMPJc1CV_1s9qyzKikhSnIIHcGQvi9SzvvWKoXw0lz=s1360-w1360-h1020-rw" alt="Section 1 Frame 2" />
           </div>
         </article>
       </div>
@@ -195,15 +194,6 @@ app.innerHTML = `
 
     <section class="popular" id="pricing">
       <div class="product-grid">
-        <article class="product-card">
-          <div class="image-wrap">
-            <img src="${frame3ImageDataUri}" alt="Frame 3" />
-          </div>
-          <div class="product-details">
-            <p class="supplier">Local Product</p>
-          </div>
-        </article>
-
         <article class="product-card">
           <div class="image-wrap">
             <img src="https://marmotomas.com/wp-content/uploads/2021/08/WhatsApp-Image-2021-05-27-at-17.02.51-4-768x768.jpeg" alt="Landscaper Specimen 3000 lbs" />
@@ -268,9 +258,9 @@ app.innerHTML = `
       <button class="modal-close" id="modal-close" aria-label="Close">×</button>
       <div class="modal-image-stage">
         <img id="modal-img" src="" alt="" />
-        <div class="modal-actions">
-          <button class="order-trigger" id="make-order-btn" type="button">Make a Order</button>
-        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="primary-btn" id="create-order-modal-btn" type="button">Make Order</button>
       </div>
       <button class="modal-nav right" id="modal-next" type="button" aria-label="Next image">&gt;</button>
     </div>
@@ -279,64 +269,112 @@ app.innerHTML = `
       <div class="order-sheet" role="dialog" aria-modal="true" aria-labelledby="order-sheet-title">
         <div class="order-sheet-header">
           <div>
-            <p class="order-sheet-subtitle">Stone Order Request</p>
-            <h3 id="order-sheet-title">Order Paper</h3>
+            <p class="order-sheet-subtitle">Address Details</p>
+            <h3 id="order-sheet-title">Address Details</h3>
+            <div class="section-underline"></div>
           </div>
-          <button class="close-sheet" id="close-sheet-btn" type="button" aria-label="Close order form">×</button>
+          <div class="order-sheet-top-actions">
+            <button class="close-sheet" id="close-sheet-btn" type="button" aria-label="Close order form">×</button>
+          </div>
         </div>
 
-        <div class="order-sheet-body">
-          <div class="order-sheet-form">
-            <label>
-              <span>Company Name</span>
-              <input id="company-name" type="text" placeholder="Company name" />
-            </label>
+        <div class="order-sheet-body" id="order-sheet-body">
+          <div class="order-step active" id="order-create-step">
+            <div class="create-order-grid">
+              <div class="order-form-panel">
+                <div class="order-sheet-form">
+                  <label>
+                    <span>Name</span>
+                    <input id="customer-name" type="text" placeholder="Full name" />
+                  </label>
 
-            <label>
-              <span>Name</span>
-              <input id="customer-name" type="text" placeholder="Enter name" />
-            </label>
+                  <label>
+                    <span>Company Name</span>
+                    <input id="company-name" type="text" placeholder="Company name" />
+                  </label>
 
-            <label>
-              <span>Address</span>
-              <textarea id="customer-address" rows="3" placeholder="Enter address"></textarea>
-            </label>
+                  <label>
+                    <span>Address</span>
+                    <textarea id="customer-address" rows="3" placeholder="Enter address details"></textarea>
+                  </label>
 
-            <div class="field-row two-col">
-              <label>
-                <span>Phone Number</span>
-                <input id="customer-phone" type="tel" placeholder="Phone number" />
-              </label>
-              <label>
-                <span>Email Address</span>
-                <input id="customer-email" type="email" placeholder="Email address" />
-              </label>
+                  <div class="field-row two-col">
+                    <label>
+                      <span>Phone Number</span>
+                      <input id="customer-phone" type="tel" placeholder="Phone number" />
+                    </label>
+                    <label>
+                      <span>Email</span>
+                      <input id="customer-email" type="email" placeholder="Email address" />
+                    </label>
+                  </div>
+
+                  <div class="drawing-pdf-section">
+                    <h4>Drawing PDF</h4>
+                    <input id="drawing-pdf-file" type="file" accept="application/pdf" aria-label="Drawing PDF" />
+                    <div class="drawing-pdf-meta" id="drawing-pdf-meta">No PDF selected</div>
+                    <a id="drawing-pdf-link" class="drawing-pdf-link hidden" href="#" target="_blank" rel="noopener noreferrer">Open drawing PDF</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-side-panel">
+                <div class="order-preview-box">
+                  <img id="order-preview-image" src="" alt="Selected stone" />
+                </div>
+
+                <button class="primary-btn create-order-btn" id="create-order-btn" type="button">Create Order</button>
+
+                <div class="design-tool-group">
+                  <div class="canvas-toolbar">
+                    <button class="tool-btn active" data-tool="pen" type="button">Pen</button>
+                    <button class="tool-btn" data-tool="eraser" type="button">Eraser</button>
+                    <button class="tool-btn" data-tool="line" type="button">Line</button>
+                    <button class="tool-btn" data-tool="rect" type="button">Rect</button>
+                    <input id="draw-color" type="color" value="#111827" aria-label="Pick drawing color" />
+                    <input id="draw-size" type="range" min="1" max="20" value="4" aria-label="Brush size" />
+                  </div>
+                  <canvas id="stone-design-canvas" width="900" height="260"></canvas>
+                </div>
+              </div>
             </div>
 
+            <div class="sheet-actions">
+              <button class="secondary-btn" id="order-back-btn" type="button">Back</button>
+              <button class="primary-btn save-order-btn" id="save-order-btn" type="button">Save</button>
+              <button class="primary-btn buy-now-btn hidden" id="buy-now-btn" type="button">Buy Now</button>
+            </div>
           </div>
-        </div>
 
-        <div class="sheet-actions">
-          <button class="secondary-btn" id="order-details-btn" type="button">Order Details</button>
-          <button class="primary-btn" id="submit-order-btn" type="button">Submit</button>
-        </div>
-      </div>
-    </div>
+          <div class="order-step hidden" id="order-buy-step">
+            <div class="order-sheet-header order-subheader">
+              <div>
+                <p class="order-sheet-subtitle">Create Order</p>
+                <h3>Create Order</h3>
+                <div class="section-underline"></div>
+              </div>
+            </div>
 
-    <div class="detail-document-overlay hidden" id="detail-document-overlay">
-      <div class="detail-document" role="dialog" aria-modal="true" aria-labelledby="detail-document-title">
-        <div class="detail-document-header">
-          <div>
-            <p class="order-sheet-subtitle">Order Details</p>
-            <h3 id="detail-document-title">Detail Pages</h3>
+            <div class="buy-order-file">
+              <table class="buy-order-table" aria-live="polite">
+                <thead>
+                  <tr>
+                    <th>S.N.</th>
+                    <th>Length / Width (cm)</th>
+                    <th>Height (cm)</th>
+                    <th>Quantity</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody id="buy-order-row-list"></tbody>
+              </table>
+            </div>
+
+            <div class="sheet-actions">
+              <button class="secondary-btn" id="buy-back-btn" type="button">Back</button>
+              <button class="primary-btn" id="final-buy-btn" type="button">Buy Now</button>
+            </div>
           </div>
-          <button class="close-sheet" id="close-detail-document-btn" type="button" aria-label="Close detail document">×</button>
-        </div>
-
-        <div class="detail-page-view" id="detail-pages-container"></div>
-
-        <div class="detail-nav">
-          <button type="button" class="nav-detail-page" id="save-detail-page-btn">Save</button>
         </div>
       </div>
     </div>
@@ -361,37 +399,185 @@ const modalImg = document.getElementById('modal-img');
 const modalClose = document.getElementById('modal-close');
 const modalPrev = document.getElementById('modal-prev');
 const modalNext = document.getElementById('modal-next');
-const makeOrderBtn = document.getElementById('make-order-btn');
-const showStoneImageBtn = document.getElementById('show-stone-image-btn');
+const modalCreateOrderBtn = document.getElementById('create-order-modal-btn');
 const orderSheetOverlay = document.getElementById('order-sheet-overlay');
 const closeSheetBtn = document.getElementById('close-sheet-btn');
-const submitOrderBtn = document.getElementById('submit-order-btn');
-const orderDetailsBtn = document.getElementById('order-details-btn');
+const orderBackBtn = document.getElementById('order-back-btn');
+const saveOrderBtn = document.getElementById('save-order-btn');
+const buyBackBtn = document.getElementById('buy-back-btn');
+const buyNowBtn = document.getElementById('buy-now-btn');
+const finalBuyBtn = document.getElementById('final-buy-btn');
+const orderCreateStep = document.getElementById('order-create-step');
+const orderBuyStep = document.getElementById('order-buy-step');
+const buyOrderRowList = document.getElementById('buy-order-row-list');
 const orderPreviewImage = document.getElementById('order-preview-image');
-const selectedStoneName = document.getElementById('selected-stone-name');
-const designStoneName = document.getElementById('design-stone-name');
-const detailDocumentOverlay = document.getElementById('detail-document-overlay');
-const closeDetailDocumentBtn = document.getElementById('close-detail-document-btn');
-const detailPagesContainer = document.getElementById('detail-pages-container');
-const saveDetailPageBtn = document.getElementById('save-detail-page-btn');
+const stoneDesignCanvas = document.getElementById('stone-design-canvas');
+const drawColorInput = document.getElementById('draw-color');
+const drawSizeInput = document.getElementById('draw-size');
+const createOrderBtn = document.getElementById('create-order-btn');
 const liozImages = Array.from(document.querySelectorAll('#lioz-grid .frame-card img'));
 const productImages = Array.from(document.querySelectorAll('#pricing .product-card img'));
+const travertinoChosenImage = 'https://5.imimg.com/data5/IL/BV/MY-45551159/essence-desert-travertine-tiles.jpeg';
 let activeImages = liozImages;
 let activeImageIndex = 0;
-let detailDocumentPageIndex = 0;
-const totalDetailPages = 1;
-const detailDocumentData = Array.from({ length: 200 }, (_, index) => ({
-  sn: index + 1,
-  lengthWidth: '',
-  height: '',
-  quantity: '',
-  etc: '',
-}));
+let currentDrawingTool = 'pen';
+let isDrawing = false;
+let lastPoint = null;
+let shapeStartPoint = null;
+let orderSaved = false;
+let selectedDrawingPdf = null;
+let drawingPdfObjectUrl = '';
 
-function collectDetailDocumentSummary() {
-  return detailDocumentData.map((row) => (
-    `${row.sn} | ${row.lengthWidth} | ${row.height} | ${row.quantity} | ${row.etc}`
-  )).join('\n');
+function getSelectedStoneInfo() {
+  const fallbackStoneName = 'Travertino stone sample 1';
+  const fallbackStoneImage = 'https://5.imimg.com/data5/IL/BV/MY-45551159/essence-desert-travertine-tiles.jpeg';
+  const stoneName = (document.querySelector('#selected-stone-name')?.textContent || document.querySelector('#design-stone-name')?.textContent || activeImages[activeImageIndex]?.alt || fallbackStoneName).trim();
+  const stoneImage = (orderPreviewImage?.src || activeImages[activeImageIndex]?.src || fallbackStoneImage).trim();
+
+  return {
+    stoneName,
+    stoneImage,
+  };
+}
+
+function renderBuyOrderRows() {
+  if (!buyOrderRowList) return;
+
+  const rows = Array.from({ length: 200 }, (_, index) => {
+    const serialNumber = index + 1;
+    return `
+      <tr>
+        <td>${serialNumber}</td>
+        <td><input type="text" class="order-row-input" placeholder="Length / Width" aria-label="Length and width row ${serialNumber}" /></td>
+        <td><input type="text" class="order-row-input" placeholder="Height" aria-label="Height row ${serialNumber}" /></td>
+        <td><input type="text" class="order-row-input" placeholder="Quantity" aria-label="Quantity row ${serialNumber}" /></td>
+        <td><input type="text" class="order-row-input" placeholder="Note" aria-label="Note row ${serialNumber}" /></td>
+      </tr>
+    `;
+  }).join('');
+
+  buyOrderRowList.innerHTML = rows;
+}
+
+function getOrderSheetRows() {
+  if (!buyOrderRowList) return 'No order lines entered.';
+
+  const rows = Array.from(buyOrderRowList.querySelectorAll('tr'))
+    .map((row, index) => {
+      const inputs = Array.from(row.querySelectorAll('input'));
+      const values = inputs.map((input) => (input.value || '').trim());
+      const hasData = values.some(Boolean);
+
+      if (!hasData) return null;
+
+      const [lengthWidth, height, quantity, note] = values;
+      const noteText = note ? `\n    Note: ${note}` : '';
+
+      return `Row ${index + 1}\n  Length / Width: ${lengthWidth || '-'}\n  Height: ${height || '-'}\n  Quantity: ${quantity || '-'}${noteText}`;
+    })
+    .filter(Boolean);
+
+  return rows.length ? rows.join('\n\n') : 'No order lines entered.';
+}
+
+function setOrderSheetMode(mode) {
+  const isCreate = mode === 'create';
+  if (orderCreateStep) orderCreateStep.classList.toggle('hidden', !isCreate);
+  if (orderBuyStep) orderBuyStep.classList.toggle('hidden', isCreate);
+}
+
+function initDrawingTools() {
+  if (!stoneDesignCanvas) return;
+
+  const context = stoneDesignCanvas.getContext('2d');
+  if (!context) return;
+
+  const resizeCanvas = () => {
+    const ratio = window.devicePixelRatio || 1;
+    const rect = stoneDesignCanvas.getBoundingClientRect();
+    stoneDesignCanvas.width = Math.max(640, rect.width) * ratio;
+    stoneDesignCanvas.height = Math.max(220, rect.height) * ratio;
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    context.lineCap = 'round';
+    context.lineJoin = 'round';
+  };
+
+  const getPointerPosition = (event) => {
+    const rect = stoneDesignCanvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+  };
+
+  const drawLine = (from, to) => {
+    context.strokeStyle = currentDrawingTool === 'eraser' ? '#ffffff' : (drawColorInput ? drawColorInput.value : '#111827');
+    context.lineWidth = Number(drawSizeInput?.value || 4);
+    context.beginPath();
+    context.moveTo(from.x, from.y);
+    context.lineTo(to.x, to.y);
+    context.stroke();
+  };
+
+  document.querySelectorAll('.tool-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      currentDrawingTool = button.dataset.tool || 'pen';
+      document.querySelectorAll('.tool-btn').forEach((tool) => tool.classList.toggle('active', tool === button));
+    });
+  });
+
+  stoneDesignCanvas.addEventListener('pointerdown', (event) => {
+    isDrawing = true;
+    lastPoint = getPointerPosition(event);
+    shapeStartPoint = lastPoint;
+    if (currentDrawingTool === 'pen' || currentDrawingTool === 'eraser') {
+      context.beginPath();
+      context.moveTo(lastPoint.x, lastPoint.y);
+    }
+  });
+
+  stoneDesignCanvas.addEventListener('pointermove', (event) => {
+    if (!isDrawing) return;
+    const point = getPointerPosition(event);
+    if (currentDrawingTool === 'pen' || currentDrawingTool === 'eraser') {
+      drawLine(lastPoint, point);
+      lastPoint = point;
+      return;
+    }
+
+    if (shapeStartPoint) {
+      const snapshot = context.getImageData(0, 0, stoneDesignCanvas.width, stoneDesignCanvas.height);
+      context.putImageData(snapshot, 0, 0);
+      context.strokeStyle = drawColorInput ? drawColorInput.value : '#111827';
+      context.lineWidth = Number(drawSizeInput?.value || 4);
+      if (currentDrawingTool === 'line') {
+        context.beginPath();
+        context.moveTo(shapeStartPoint.x, shapeStartPoint.y);
+        context.lineTo(point.x, point.y);
+        context.stroke();
+      }
+      if (currentDrawingTool === 'rect') {
+        const width = point.x - shapeStartPoint.x;
+        const height = point.y - shapeStartPoint.y;
+        context.strokeRect(shapeStartPoint.x, shapeStartPoint.y, width, height);
+      }
+    }
+  });
+
+  stoneDesignCanvas.addEventListener('pointerup', () => {
+    isDrawing = false;
+    lastPoint = null;
+    shapeStartPoint = null;
+  });
+
+  stoneDesignCanvas.addEventListener('pointerleave', () => {
+    isDrawing = false;
+    lastPoint = null;
+    shapeStartPoint = null;
+  });
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 }
 
 function showModalImage(index) {
@@ -411,25 +597,28 @@ function openModalWithIndex(index, images) {
 
 function closeModal() {
   imageModal.classList.add('hidden');
-  if (orderSheetOverlay) {
-    orderSheetOverlay.classList.add('hidden');
-  }
 }
 
-function openOrderSheet() {
-  const fallbackStoneImage = 'https://www.criteriofavorito.com/images/data/catalogue/5/granito-pedras-salgadas1.jpg';
-  const fallbackStoneLabel = 'Granit stone';
-  const activeImage = activeImages[activeImageIndex] || { src: fallbackStoneImage, alt: fallbackStoneLabel };
+function openOrderSheet(event) {
+  const fallbackStoneImage = travertinoChosenImage;
+  const fallbackStoneLabel = 'Travertino stone sample 1';
+  const button = event && event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+  const explicitImage = button?.dataset?.stoneImage || button?.dataset?.image;
+  const explicitName = button?.dataset?.stoneName || button?.dataset?.title;
+  const activeImage = explicitImage
+    ? { src: explicitImage, alt: explicitName || fallbackStoneLabel }
+    : (activeImages[activeImageIndex] || { src: fallbackStoneImage, alt: fallbackStoneLabel });
 
   if (orderPreviewImage) {
     orderPreviewImage.src = activeImage.src || fallbackStoneImage;
     orderPreviewImage.alt = activeImage.alt || fallbackStoneLabel;
   }
 
-  const stoneLabel = activeImage.alt || fallbackStoneLabel;
-  if (selectedStoneName) selectedStoneName.textContent = stoneLabel;
-  if (designStoneName) designStoneName.textContent = stoneLabel;
-  if (orderSheetOverlay) orderSheetOverlay.classList.remove('hidden');
+  if (orderSheetOverlay) {
+    orderSheetOverlay.classList.remove('hidden');
+  }
+
+  setOrderSheetMode('create');
 }
 
 function bindImagesToModal(images) {
@@ -444,167 +633,199 @@ function bindImagesToModal(images) {
 bindImagesToModal(liozImages);
 bindImagesToModal(productImages);
 
-modalClose.addEventListener('click', closeModal);
-if (closeSheetBtn) closeSheetBtn.addEventListener('click', () => orderSheetOverlay.classList.add('hidden'));
+if (modalClose) modalClose.addEventListener('click', closeModal);
+if (closeSheetBtn) {
+  closeSheetBtn.addEventListener('click', () => {
+    orderSheetOverlay.classList.add('hidden');
+  });
+}
 if (modalPrev && modalNext) {
   modalPrev.addEventListener('click', () => showModalImage(activeImageIndex - 1));
   modalNext.addEventListener('click', () => showModalImage(activeImageIndex + 1));
 }
-if (makeOrderBtn) makeOrderBtn.addEventListener('click', openOrderSheet);
-if (showStoneImageBtn) {
-  showStoneImageBtn.addEventListener('click', () => {
-    const imageSrc = orderPreviewImage?.src || 'https://www.criteriofavorito.com/images/data/catalogue/5/granito-pedras-salgadas1.jpg';
-    const imageAlt = selectedStoneName?.textContent || 'Granit stone';
-    modalImg.src = imageSrc;
-    modalImg.alt = imageAlt;
+if (modalCreateOrderBtn) {
+  modalCreateOrderBtn.addEventListener('click', () => {
+    const selectedImage = activeImages[activeImageIndex] || { src: travertinoChosenImage, alt: 'Travertino stone sample 1' };
+    if (orderPreviewImage) {
+      orderPreviewImage.src = selectedImage.src || travertinoChosenImage;
+      orderPreviewImage.alt = selectedImage.alt || 'Travertino stone sample 1';
+    }
+    imageModal.classList.add('hidden');
+    openOrderSheet();
+  });
+}
+if (orderBackBtn) {
+  orderBackBtn.addEventListener('click', () => {
+    orderSheetOverlay.classList.add('hidden');
     imageModal.classList.remove('hidden');
   });
 }
+if (buyBackBtn) {
+  buyBackBtn.addEventListener('click', () => {
+    setOrderSheetMode('create');
+  });
+}
 
-function sendOrderEmail() {
+function formatDrawingPdfSummary(file) {
+  if (!file) return 'No PDF selected';
+
+  const sizeKb = Math.max(1, Math.round(file.size / 1024));
+  const fileType = file.type || 'application/pdf';
+  return `${file.name} (${fileType}, ${sizeKb} KB)`;
+}
+
+function setSelectedPdf(file) {
+  if (!file) {
+    selectedDrawingPdf = null;
+    if (drawingPdfObjectUrl) {
+      URL.revokeObjectURL(drawingPdfObjectUrl);
+      drawingPdfObjectUrl = '';
+    }
+    const pdfMeta = document.getElementById('drawing-pdf-meta');
+    const pdfLink = document.getElementById('drawing-pdf-link');
+    if (pdfMeta) pdfMeta.textContent = 'No PDF selected';
+    if (pdfLink) {
+      pdfLink.classList.add('hidden');
+      pdfLink.href = '#';
+      pdfLink.removeAttribute('download');
+      pdfLink.textContent = 'Open drawing PDF';
+    }
+    return;
+  }
+
+  selectedDrawingPdf = file;
+  if (drawingPdfObjectUrl) {
+    URL.revokeObjectURL(drawingPdfObjectUrl);
+  }
+  drawingPdfObjectUrl = URL.createObjectURL(file);
+
+  const pdfMeta = document.getElementById('drawing-pdf-meta');
+  const pdfLink = document.getElementById('drawing-pdf-link');
+  if (pdfMeta) pdfMeta.textContent = formatDrawingPdfSummary(file);
+  if (pdfLink) {
+    pdfLink.href = drawingPdfObjectUrl;
+    pdfLink.classList.remove('hidden');
+    pdfLink.textContent = 'Open drawing PDF';
+    pdfLink.download = file.name;
+  }
+}
+
+const drawingPdfInput = document.getElementById('drawing-pdf-file');
+if (drawingPdfInput) {
+  drawingPdfInput.addEventListener('change', (event) => {
+    const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
+    setSelectedPdf(file);
+  });
+}
+
+function buildDrawingPdfSection() {
+  if (!selectedDrawingPdf) return 'Drawing PDF: Not provided';
+
+  return [
+    'Drawing PDF:',
+    `File Name: ${selectedDrawingPdf.name}`,
+    `File Type: ${selectedDrawingPdf.type || 'application/pdf'}`,
+    `File Size: ${Math.max(1, Math.round(selectedDrawingPdf.size / 1024))} KB`,
+    'Attachment: selected in browser during order creation',
+  ].join('\n');
+}
+
+async function sendOrderEmail() {
   const companyName = document.getElementById('company-name')?.value?.trim() || 'Not provided';
-  const customerType = document.getElementById('customer-type')?.value || 'Company';
   const customerName = document.getElementById('customer-name')?.value?.trim() || 'Not provided';
   const customerAddress = document.getElementById('customer-address')?.value?.trim() || 'Not provided';
   const customerPhone = document.getElementById('customer-phone')?.value?.trim() || 'Not provided';
   const customerEmail = document.getElementById('customer-email')?.value?.trim() || 'Not provided';
-  const orderNotes = document.getElementById('order-notes')?.value?.trim() || collectDetailDocumentSummary();
-  const requestedStoneName = 'Granit stone';
-  const requestedStoneImageSrc = 'https://www.criteriofavorito.com/images/data/catalogue/5/granito-pedras-salgadas1.jpg';
-  const stoneName = (selectedStoneName?.textContent?.trim() || requestedStoneName).trim();
-  const stoneImageSrc = (orderPreviewImage?.src || (activeImages[activeImageIndex]?.src ?? requestedStoneImageSrc)).trim();
+  const stoneDetails = getSelectedStoneInfo();
+  const orderRows = getOrderSheetRows();
+  const drawingPdfSection = buildDrawingPdfSection();
 
   const emailBody = [
     'Stone Order Request',
     '==================',
+    'Customer Information',
+    '--------------------',
     `Company Name: ${companyName}`,
-    `Type: ${customerType}`,
     `Name: ${customerName}`,
     `Address: ${customerAddress}`,
     `Phone Number: ${customerPhone}`,
     `Email Address: ${customerEmail}`,
-    `Stone: ${stoneName}`,
-    'Selected Stone Image:',
-    stoneImageSrc || requestedStoneImageSrc,
-    'Order Details:',
-    orderNotes,
+    '',
+    'Stone Information',
+    '-----------------',
+    `Stone: ${stoneDetails.stoneName}`,
+    'Stone Image:',
+    stoneDetails.stoneImage,
+    '',
+    'Order Details',
+    '-------------',
+    orderRows,
+    '',
+    drawingPdfSection,
   ].join('\n');
 
   const subject = encodeURIComponent('Stone Order Request');
   const body = encodeURIComponent(emailBody);
-  const mailtoLink = `mailto:tpjlimbu61@gmail.com?subject=${subject}&body=${body}`;
-
-  window.location.href = mailtoLink;
+  window.location.href = `mailto:tpjlimbu61@gmail.com?subject=${subject}&body=${body}`;
 }
 
-if (submitOrderBtn) {
-  submitOrderBtn.addEventListener('click', () => {
-    submitOrderBtn.textContent = 'Sending...';
-    submitOrderBtn.disabled = true;
-
-    setTimeout(() => {
-      sendOrderEmail();
-      submitOrderBtn.textContent = 'Submit';
-      submitOrderBtn.disabled = false;
-    }, 200);
-  });
-}
-
-function renderDetailDocumentPages() {
-  if (!detailPagesContainer) return;
-
-  detailPagesContainer.innerHTML = '';
-
-  const page = document.createElement('div');
-  page.className = 'detail-page active';
-
-  const rows = Array.from({ length: detailDocumentData.length }, (_, rowIndex) => {
-    const row = detailDocumentData[rowIndex];
-    if (!row) return '';
-
-    return `
-      <tr>
-        <td>${row.sn}</td>
-        <td><input type="text" value="${row.lengthWidth ?? ''}" data-row-index="${rowIndex}" data-field="lengthWidth" placeholder="Length/Width" /></td>
-        <td><input type="text" value="${row.height ?? ''}" data-row-index="${rowIndex}" data-field="height" placeholder="Height" /></td>
-        <td><input type="text" value="${row.quantity ?? ''}" data-row-index="${rowIndex}" data-field="quantity" placeholder="Quantity" /></td>
-        <td><input type="text" value="${row.etc ?? ''}" data-row-index="${rowIndex}" data-field="etc" placeholder="Etc" /></td>
-      </tr>
-    `;
-  }).join('');
-
-  page.innerHTML = `
-    <table class="detail-table">
-      <thead>
-        <tr>
-          <th>S.N.</th>
-          <th>Length/Width</th>
-          <th>Height</th>
-          <th>Quantity</th>
-          <th>Etc</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rows}
-      </tbody>
-    </table>
-  `;
-
-  page.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('input', (event) => {
-      const target = event.target;
-      const rowIndex = Number(target.dataset.rowIndex);
-      const field = target.dataset.field;
-      if (detailDocumentData[rowIndex]) {
-        detailDocumentData[rowIndex][field] = target.value;
+if (saveOrderBtn) {
+  saveOrderBtn.addEventListener('click', () => {
+    orderSaved = true;
+    if (buyNowBtn) {
+      buyNowBtn.classList.remove('hidden');
+      buyNowBtn.disabled = false;
+    }
+    if (stoneDesignCanvas) {
+      const designDataUrl = stoneDesignCanvas.toDataURL('image/png');
+      if (orderPreviewImage) {
+        orderPreviewImage.src = designDataUrl;
       }
-    });
-  });
-
-  detailPagesContainer.appendChild(page);
-}
-
-function openDetailDocument() {
-  detailDocumentPageIndex = 0;
-  renderDetailDocumentPages();
-  detailDocumentOverlay?.classList.remove('hidden');
-}
-
-if (orderDetailsBtn) {
-  orderDetailsBtn.addEventListener('click', openDetailDocument);
-}
-
-if (closeDetailDocumentBtn) {
-  closeDetailDocumentBtn.addEventListener('click', () => {
-    detailDocumentOverlay?.classList.add('hidden');
-  });
-}
-
-if (saveDetailPageBtn) {
-  saveDetailPageBtn.addEventListener('click', () => {
-    if (saveDetailPageBtn.dataset.orderReady === 'true') {
-      sendOrderEmail();
-      detailDocumentOverlay?.classList.add('hidden');
-      return;
     }
 
-    saveDetailPageBtn.dataset.orderReady = 'true';
-    saveDetailPageBtn.textContent = 'Buy Now';
+    renderBuyOrderRows();
+    setOrderSheetMode('buy');
   });
 }
 
-renderDetailDocumentPages();
+if (buyNowBtn) {
+  buyNowBtn.addEventListener('click', () => {
+    if (!orderSaved) return;
+    sendOrderEmail();
+  });
+}
 
+if (finalBuyBtn) {
+  finalBuyBtn.addEventListener('click', () => {
+    sendOrderEmail();
+  });
+}
 
-document.addEventListener('keydown', e => {
-  if (imageModal.classList.contains('hidden')) return;
-  if (e.key === 'ArrowLeft') showModalImage(activeImageIndex - 1);
-  if (e.key === 'ArrowRight') showModalImage(activeImageIndex + 1);
-  if (e.key === 'Escape') closeModal();
+if (createOrderBtn) {
+  createOrderBtn.addEventListener('click', () => {
+    setOrderSheetMode('buy');
+  });
+}
+
+initDrawingTools();
+renderBuyOrderRows();
+setOrderSheetMode('create');
+
+document.addEventListener('keydown', (event) => {
+  if (imageModal && !imageModal.classList.contains('hidden')) {
+    if (event.key === 'ArrowLeft') showModalImage(activeImageIndex - 1);
+    if (event.key === 'ArrowRight') showModalImage(activeImageIndex + 1);
+    if (event.key === 'Escape') closeModal();
+  }
+
+  if (orderSheetOverlay && !orderSheetOverlay.classList.contains('hidden')) {
+    if (event.key === 'ArrowLeft' || event.key === 'PageUp') setOrderSheetMode('create');
+    if (event.key === 'ArrowRight' || event.key === 'PageDown') setOrderSheetMode('buy');
+  }
 });
 
-imageModal.addEventListener('click', e => {
-  if (e.target === imageModal) closeModal();
+imageModal.addEventListener('click', (event) => {
+  if (event.target === imageModal) closeModal();
 });
 
 // Filter panel content by selected category button
@@ -615,6 +836,16 @@ const filterButtons = Array.from(document.querySelectorAll('.filter-buttons butt
 const liozCards = Array.from(document.querySelectorAll('#lioz-grid .frame-card'));
 const panelFilterKeys = new Set(['lioz', 'molenos', 'estarmos', 'ruivina', 'granit', 'angola', 'travertine', 'silestone', 'basalt', 'category', 'status', 'size', 'supplier', 'availability', 'italian', 'zimbabwe', 'region']);
 let activeStoneFilter = null;
+
+function setAllFilterActive() {
+  activeStoneFilter = null;
+  filterButtons.forEach((button) => {
+    const isAllButton = (button.textContent || '').trim().toLowerCase() === 'all';
+    button.classList.toggle('active', isAllButton);
+  });
+  liozCards.forEach((card) => card.classList.remove('hidden'));
+  updateLiozPanelState(false);
+}
 
 function updateLiozPanelState(isOpen) {
   if (!liozPanel) return;
@@ -645,6 +876,11 @@ filterButtons.forEach(button => {
     button.classList.add('active');
 
     const selectedFilter = (button.textContent || '').trim().toLowerCase();
+    if (selectedFilter === 'all') {
+      setAllFilterActive();
+      return;
+    }
+
     if (!panelFilterKeys.has(selectedFilter)) {
       activeStoneFilter = null;
       updateLiozPanelState(false);
