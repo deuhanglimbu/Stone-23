@@ -1,0 +1,92 @@
+<svg width="900" height="560" viewBox="0 0 900 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D9DAD8"/>
+      <stop offset="1" stop-color="#B7B8B6"/>
+    </linearGradient>
+    <linearGradient id="wallGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7D8689"/>
+      <stop offset="0.45" stop-color="#6B7276"/>
+      <stop offset="1" stop-color="#8E969A"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C8C0B8"/>
+      <stop offset="1" stop-color="#AFA59D"/>
+    </linearGradient>
+    <linearGradient id="slabGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E9E5E2"/>
+      <stop offset="0.45" stop-color="#D2CCC6"/>
+      <stop offset="1" stop-color="#C6BEB8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="560" fill="url(#skyGrad)"/>
+  <rect y="440" width="900" height="120" fill="url(#groundGrad)"/>
+
+  <rect x="40" y="58" width="820" height="290" rx="4" fill="url(#wallGrad)"/>
+  <g opacity="0.5">
+    <rect x="80" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="118" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="156" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="194" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="232" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="270" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="308" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="346" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="384" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="422" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="460" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="498" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="536" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="574" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="612" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="650" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="688" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="726" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="764" y="72" width="18" height="270" fill="#A3AEB1"/>
+    <rect x="802" y="72" width="18" height="270" fill="#A3AEB1"/>
+  </g>
+
+  <rect x="158" y="78" width="584" height="260" fill="#383E42"/>
+  <rect x="216" y="110" width="472" height="192" fill="#252A2D"/>
+  <rect x="262" y="146" width="396" height="146" fill="#413E3B"/>
+
+  <rect x="298" y="118" width="116" height="182" fill="#1D2022"/>
+  <rect x="474" y="118" width="116" height="182" fill="#1D2022"/>
+
+  <g opacity="0.9">
+    <rect x="230" y="98" width="84" height="14" fill="#1A1E20"/>
+    <rect x="612" y="98" width="84" height="14" fill="#1A1E20"/>
+  </g>
+
+  <rect x="200" y="260" width="500" height="30" fill="#4C5154"/>
+
+  <g>
+    <path d="M60 342L370 342L408 420H60V342Z" fill="#D1CFCB"/>
+    <path d="M162 342L298 342L332 420H120L162 342Z" fill="#E7E2DD"/>
+    <path d="M350 342L508 342L552 420H314L350 342Z" fill="#E7E2DD"/>
+    <path d="M568 342L838 342L862 420H542L568 342Z" fill="#D5D1CC"/>
+  </g>
+
+  <g opacity="0.85">
+    <path d="M80 250L138 250L170 340H72L80 250Z" fill="#D9D3CF"/>
+    <path d="M108 250L150 250L182 340H72L108 250Z" fill="#EBE5E0"/>
+    <path d="M146 250L190 250L216 340H108L146 250Z" fill="#E6E0DB"/>
+    <path d="M642 250L690 250L728 340H626L642 250Z" fill="#E9E4DF"/>
+    <path d="M704 250L752 250L790 340H682L704 250Z" fill="#DCD5D1"/>
+  </g>
+
+  <g opacity="0.7">
+    <rect x="102" y="108" width="78" height="70" fill="#CFCBC9"/>
+    <rect x="720" y="104" width="88" height="80" fill="#D9D3CF"/>
+  </g>
+
+  <g opacity="0.78">
+    <rect x="430" y="382" width="140" height="16" fill="#2B3033"/>
+    <rect x="562" y="382" width="94" height="16" fill="#2B3033"/>
+  </g>
+
+  <rect x="188" y="430" width="540" height="20" fill="#7F7772" opacity="0.5"/>
+  <rect x="434" y="418" width="40" height="18" fill="#BEB8B2" opacity="0.75"/>
+  <rect x="656" y="418" width="24" height="18" fill="#BEB8B2" opacity="0.75"/>
+</svg>
