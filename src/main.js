@@ -62,16 +62,16 @@ app.innerHTML = `
     <section class="filters" id="marketplace">
       <input type="search" placeholder="Search for flagging, steps, etc..." />
       <div class="filter-buttons">
-        <button class="active">All</button>
-        <button id="lioz-btn">Lioz</button>
-        <button id="molenos-btn">Molenos</button>
-        <button>Estarmos</button>
-        <button>Ruivina</button>
-        <button>Granit</button>
-        <button>Zimbabwe</button>
-        <button>Travertine</button>
-        <button>Angola</button>
-        <button>Silestone</button>
+        <button class="active" data-filter="all">All</button>
+        <button id="lioz-btn" data-filter="lioz">Lioz</button>
+        <button id="molenos-btn" data-filter="molenos">Molenos</button>
+        <button data-filter="estarmos">Estarmos</button>
+        <button data-filter="ruivina">Ruivina</button>
+        <button data-filter="granit">Granit</button>
+        <button data-filter="zimbabwe">Zimbabwe</button>
+        <button data-filter="travertine">Travertine</button>
+        <button data-filter="angola">Angola</button>
+        <button data-filter="silestone">Silestone</button>
       </div>
     </section>
 
@@ -216,36 +216,6 @@ app.innerHTML = `
 
     <section class="popular" id="pricing">
       <div class="product-grid">
-        <article class="product-card">
-          <div class="image-wrap">
-            <img src="https://marmotomas.com/wp-content/uploads/2021/08/WhatsApp-Image-2021-05-27-at-17.02.51-4-768x768.jpeg" alt="Landscaper Specimen 3000 lbs" />
-          </div>
-          <div class="product-details">
-            <p class="supplier">Local Product</p>
-            <p class="product-title">Landscaper Specimen 3000 lbs</p>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="image-wrap">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXPfeQV3RGozli__QEOLXFXnQqf7RI7xpnvZiEgwU6HA&s=10" alt="Landscape 500-1000 lbs" />
-          </div>
-          <div class="product-details">
-            <p class="supplier">Local Product</p>
-            <p class="product-title">Landscape 500-1000 lbs</p>
-          </div>
-        </article>
-
-        <article class="product-card pink-card out-of-stock">
-          <div class="image-wrap">
-            <img src="https://www.panellingcentre.ie/images/200731-PC-Website-Worktops-600x600-V1-silestone1.jpg" alt="Silestone product" />
-            <span class="stock-badge">Out of stock</span>
-          </div>
-          <div class="product-details">
-            <p class="supplier">Supplier Hidden - KS</p>
-            <p class="product-title">Flint Hills Gray/Plaza Gray thin veneer Rumble/ashlar pattern</p>
-          </div>
-        </article>
 
       </div>
 
@@ -256,6 +226,39 @@ app.innerHTML = `
     </button>
 
     <section class="cart-section hidden" id="cart-section"></section>
+
+    <section class="our-product" aria-label="Our products">
+      <div class="our-product__header">
+        <p class="section-kicker">Collection</p>
+        <h2>Our Product</h2>
+      </div>
+
+      <div class="our-product__grid">
+        <article class="product-card">
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" alt="Marble stone product" />
+          <div class="product-card__body">
+            <h3>Marble Collection</h3>
+            <p>Premium natural stone for elegant interiors and architectural statement pieces.</p>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img src="https://i.etsystatic.com/51769720/r/il/b0e4d1/7888304796/il_1588xN.7888304796_djzz.jpg" alt="Stone slab detail" />
+          <div class="product-card__body">
+            <h3>Stone Slab</h3>
+            <p>Polished finishes and durable surfaces for kitchens, bathrooms and feature walls.</p>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img src="https://thumbs.dreamstime.com/b/elegant-freestanding-bathtub-creates-luxurious-relaxing-spa-experience-natural-stone-elements-bathroom-design-featuring-371294990.jpg" alt="Stone bathtub interior" />
+          <div class="product-card__body">
+            <h3>Luxury Bathtub</h3>
+            <p>Stone-crafted bathroom elements designed for comfort, longevity and style.</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
     <footer class="site-footer">
       <div class="footer-top">
@@ -302,6 +305,21 @@ app.innerHTML = `
             </div>
 
             <div class="create-order-layout">
+              <div class="selected-stone-panel">
+                <div class="selected-stone-preview">
+                  <img id="order-preview-image" src="" alt="Selected stone" />
+                </div>
+                <div class="selected-stone-meta">
+                  <h4>Selected Stone</h4>
+                  <p id="selected-stone-name">Granit stone</p>
+                </div>
+                <div class="selected-stone-upload">
+                  <label for="selected-stone-file" class="upload-label">Keep your design PDF file</label>
+                  <input id="selected-stone-file" type="file" accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf" />
+                  <div class="upload-status" id="selected-stone-file-status">No file selected</div>
+                </div>
+              </div>
+
               <div class="buy-order-file">
                 <table class="buy-order-table" aria-live="polite">
                   <thead>
@@ -314,21 +332,6 @@ app.innerHTML = `
                   </thead>
                   <tbody id="buy-order-row-list"></tbody>
                 </table>
-              </div>
-
-              <div class="selected-stone-panel">
-                <div class="selected-stone-preview">
-                  <img id="order-preview-image" src="" alt="Selected stone" />
-                </div>
-                <div class="selected-stone-meta">
-                  <h4>Selected Stone</h4>
-                  <p id="selected-stone-name">Granit stone</p>
-                </div>
-                <div class="selected-stone-upload">
-                  <label for="selected-stone-file" class="upload-label">Upload file</label>
-                  <input id="selected-stone-file" type="file" accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf" />
-                  <div class="upload-status" id="selected-stone-file-status">No file selected</div>
-                </div>
               </div>
             </div>
 
@@ -418,6 +421,14 @@ const drawSizeInput = document.getElementById('draw-size');
 const createOrderBtn = document.getElementById('create-order-btn');
 const liozImages = Array.from(document.querySelectorAll('#lioz-grid .frame-card img'));
 const productImages = Array.from(document.querySelectorAll('#pricing .product-card img'));
+const bodyFeatureImages = Array.from(document.querySelectorAll('.body-feature img'));
+const liozBtn = document.getElementById('lioz-btn');
+const molenosBtn = document.getElementById('molenos-btn');
+const liozPanel = document.getElementById('lioz-panel');
+const filterButtons = Array.from(document.querySelectorAll('.filter-buttons button'));
+const liozCards = Array.from(document.querySelectorAll('#lioz-grid .frame-card'));
+const panelFilterKeys = new Set(['lioz', 'molenos', 'estarmos', 'ruivina', 'granit', 'angola', 'travertine', 'silestone', 'basalt', 'category', 'status', 'size', 'supplier', 'availability', 'italian', 'zimbabwe', 'region']);
+const excludedOrderProduct = 'Landscape 500-1000 lbs';
 const travertinoChosenImage = 'https://5.imimg.com/data5/IL/BV/MY-45551159/essence-desert-travertine-tiles.jpeg';
 let activeImages = liozImages;
 let activeImageIndex = 0;
@@ -525,7 +536,7 @@ function addOrderToCart() {
   const stoneInfo = getSelectedStoneInfo();
   const currentCartItems = getStoredCartItems();
 
-  const cartEntries = rows
+  const orderRows = rows
     .map((row) => {
       const inputs = Array.from(row.querySelectorAll('input'));
       const values = inputs.map((input) => (input.value || '').trim());
@@ -533,25 +544,27 @@ function addOrderToCart() {
       if (!hasData) return null;
 
       const [dimensions, quantity, note] = values;
-      return {
-        text: [
-          dimensions || 'Length / Width / Height',
-          quantity ? `Qty: ${quantity}` : 'Qty: -',
-          note ? `Note: ${note}` : 'Note: -'
-        ].join('\n'),
-        image: stoneInfo.stoneImage || '',
-        stoneName: stoneInfo.stoneName || 'Selected stone'
-      };
+      return [
+        dimensions || 'Length / Width / Height',
+        quantity ? `Qty: ${quantity}` : 'Qty: -',
+        note ? `Note: ${note}` : 'Note: -'
+      ].join('\n');
     })
     .filter(Boolean);
 
-  if (!cartEntries.length) {
+  if (!orderRows.length) {
     window.location.href = '/saved.html';
     return;
   }
 
-  const nextCartItems = [...currentCartItems, ...cartEntries];
-  const nextSavedItems = [...getStoredSavedOrderItems(), ...cartEntries];
+  const orderEntry = {
+    text: orderRows.join('\n\n'),
+    image: stoneInfo.stoneImage || '',
+    stoneName: stoneInfo.stoneName || 'Selected stone'
+  };
+
+  const nextCartItems = [...currentCartItems, orderEntry];
+  const nextSavedItems = [...getStoredSavedOrderItems(), orderEntry];
 
   saveCartItems(nextCartItems);
   saveSavedOrderItems(nextSavedItems);
@@ -579,7 +592,7 @@ function updateSaveButtonState() {
 function renderBuyOrderRows() {
   if (!buyOrderRowList) return;
 
-  const rows = Array.from({ length: 8 }, (_, index) => {
+  const rows = Array.from({ length: 200 }, (_, index) => {
     const serialNumber = index + 1;
     return `
       <tr>
@@ -719,6 +732,15 @@ function initDrawingTools() {
   window.addEventListener('resize', resizeCanvas);
 }
 
+function shouldShowOrderButtonForImage(activeImage) {
+  const imageName = (activeImage?.alt || activeImage?.dataset?.stoneName || '').trim();
+  const isBodyFeatureImage = !!activeImage && activeImage.closest && activeImage.closest('.body-feature');
+  if (isBodyFeatureImage) {
+    return false;
+  }
+  return imageName !== excludedOrderProduct && imageName !== 'Landscape 500-1000 lbs';
+}
+
 function showModalImage(index) {
   if (!activeImages.length) return;
   const safeIndex = (index + activeImages.length) % activeImages.length;
@@ -726,16 +748,31 @@ function showModalImage(index) {
   const activeImage = activeImages[safeIndex];
   modalImg.src = activeImage.src;
   modalImg.alt = activeImage.alt;
+
+  if (modalCreateOrderBtn) {
+    const canOrder = shouldShowOrderButtonForImage(activeImage);
+    modalCreateOrderBtn.hidden = !canOrder;
+    modalCreateOrderBtn.style.display = canOrder ? 'inline-flex' : 'none';
+  }
 }
 
 function openModalWithIndex(index, images) {
   activeImages = images;
   showModalImage(index);
   imageModal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.documentElement.classList.add('modal-open');
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 function closeModal() {
+  if (modalCreateOrderBtn) {
+    modalCreateOrderBtn.hidden = false;
+    modalCreateOrderBtn.style.display = 'inline-flex';
+  }
   imageModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.documentElement.classList.remove('modal-open');
 }
 
 function syncSelectedStonePreview(imageSrc, imageAlt) {
@@ -770,6 +807,10 @@ function openOrderSheet(event) {
       ? { src: savedChoice.image, alt: savedChoice.name || fallbackStoneLabel }
       : (activeImages[activeImageIndex] || { src: fallbackStoneImage, alt: fallbackStoneLabel });
 
+  if (!shouldShowOrderButtonForImage(activeImage)) {
+    return;
+  }
+
   syncSelectedStonePreview(activeImage.src || fallbackStoneImage, activeImage.alt || fallbackStoneLabel);
   renderBuyOrderRows();
 
@@ -788,11 +829,25 @@ function openOrderSheet(event) {
   });
 }
 
+function getVisibleCategoryImages() {
+  const visibleCards = liozCards.filter((card) => !card.classList.contains('hidden'));
+  const visibleImages = visibleCards
+    .map((card) => card.querySelector('img'))
+    .filter(Boolean);
+
+  return visibleImages.length ? visibleImages : liozImages;
+}
+
 function bindImagesToModal(images) {
   images.forEach((img, index) => {
+    if (!img) return;
     img.style.cursor = 'pointer';
+    img.dataset.stoneImage = img.dataset.stoneImage || img.src || '';
+    img.dataset.stoneName = img.dataset.stoneName || img.alt || 'Selected stone';
     img.addEventListener('click', () => {
-      openModalWithIndex(index, images);
+      const visibleImages = getVisibleCategoryImages();
+      const selectedIndex = visibleImages.indexOf(img);
+      openModalWithIndex(selectedIndex >= 0 ? selectedIndex : index, visibleImages);
     });
   });
 }
@@ -855,6 +910,13 @@ startAutoCarousel();
 
 bindImagesToModal(liozImages);
 bindImagesToModal(productImages);
+bindImagesToModal(bodyFeatureImages);
+
+const bodyFeatureSection = document.querySelector('.body-feature');
+if (liozPanel && bodyFeatureSection && liozPanel.parentNode) {
+  liozPanel.classList.remove('hidden');
+  bodyFeatureSection.parentNode.insertBefore(liozPanel, bodyFeatureSection);
+}
 
 if (new URLSearchParams(window.location.search).get('openOrder') === '1') {
   const cartHash = window.location.hash === '#cart-section' || window.location.hash === 'cart-section';
@@ -920,6 +982,9 @@ if (modalPrev && modalNext) {
 if (modalCreateOrderBtn) {
   modalCreateOrderBtn.addEventListener('click', () => {
     const selectedImage = activeImages[activeImageIndex] || { src: travertinoChosenImage, alt: 'Travertino stone sample 1' };
+    if (!shouldShowOrderButtonForImage(selectedImage)) {
+      return;
+    }
     syncSelectedStonePreview(selectedImage.src || travertinoChosenImage, selectedImage.alt || 'Travertino stone sample 1');
     imageModal.classList.add('hidden');
     openOrderSheet();
@@ -1254,22 +1319,16 @@ imageModal.addEventListener('click', (event) => {
 });
 
 // Filter panel content by selected category button
-const liozBtn = document.getElementById('lioz-btn');
-const molenosBtn = document.getElementById('molenos-btn');
-const liozPanel = document.getElementById('lioz-panel');
-const filterButtons = Array.from(document.querySelectorAll('.filter-buttons button'));
-const liozCards = Array.from(document.querySelectorAll('#lioz-grid .frame-card'));
-const panelFilterKeys = new Set(['lioz', 'molenos', 'estarmos', 'ruivina', 'granit', 'angola', 'travertine', 'silestone', 'basalt', 'category', 'status', 'size', 'supplier', 'availability', 'italian', 'zimbabwe', 'region']);
 let activeStoneFilter = null;
 
 function setAllFilterActive() {
   activeStoneFilter = null;
   filterButtons.forEach((button) => {
-    const isAllButton = (button.textContent || '').trim().toLowerCase() === 'all';
+    const isAllButton = (button.dataset.filter || '').trim().toLowerCase() === 'all';
     button.classList.toggle('active', isAllButton);
   });
   liozCards.forEach((card) => card.classList.remove('hidden'));
-  updateLiozPanelState(false);
+  updateLiozPanelState(true);
 }
 
 function updateLiozPanelState(isOpen) {
@@ -1289,18 +1348,22 @@ function applyPanelFilter(filterKey) {
     if (isMatch) visibleCount += 1;
   });
 
-  // If a category has no mapped cards yet, fallback to showing all cards.
   if (visibleCount === 0) {
     liozCards.forEach(card => card.classList.remove('hidden'));
   }
+
+  activeImages = getVisibleCategoryImages();
+  activeImageIndex = 0;
 }
+
+setAllFilterActive();
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
     filterButtons.forEach(item => item.classList.remove('active'));
     button.classList.add('active');
 
-    const selectedFilter = (button.textContent || '').trim().toLowerCase();
+    const selectedFilter = (button.dataset.filter || button.textContent || '').trim().toLowerCase();
     if (selectedFilter === 'all') {
       setAllFilterActive();
       return;

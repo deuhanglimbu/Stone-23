@@ -2,26 +2,55 @@ const cartItemsKey = 'stone-cart-items';
 const savedOrderItemsKey = 'saved-order-items';
 const cartItemsKeys = [cartItemsKey];
 
+function getNormalizedItemKey(item) {
+  if (typeof item === 'string') {
+    return String(item).trim();
+  }
+
+  if (typeof item === 'object' && item) {
+    const text = String(item?.text || '').trim();
+    const image = String(item?.image || '').trim();
+    const stoneName = String(item?.stoneName || '').trim();
+    return JSON.stringify({ text, image, stoneName });
+  }
+
+  return '';
+}
+
 function sanitizeCartItems(items) {
   if (!Array.isArray(items)) return [];
 
-  return items.filter((item) => {
-    if (!item) return false;
+  const uniqueItems = [];
+  const seen = new Set();
+
+  for (const item of items) {
+    if (!item) continue;
+
+    let isValid = false;
+    let key = '';
 
     if (typeof item === 'string') {
       const normalized = item.trim();
-      return normalized.length > 0 && normalized !== 'No order details entered.';
+      isValid = normalized.length > 0 && normalized !== 'No order details entered.';
+      key = normalized;
     }
 
     if (typeof item === 'object') {
       const text = String(item?.text || '').trim();
       const image = String(item?.image || '').trim();
       const stoneName = String(item?.stoneName || '').trim();
-      return text.length > 0 && text !== 'No order details entered.' && (image.length > 0 || stoneName.length > 0);
+      isValid = text.length > 0 && text !== 'No order details entered.' && (image.length > 0 || stoneName.length > 0);
+      key = JSON.stringify({ text, image, stoneName });
     }
 
-    return false;
-  });
+    if (!isValid || !key) continue;
+    if (seen.has(key)) continue;
+
+    seen.add(key);
+    uniqueItems.push(item);
+  }
+
+  return uniqueItems;
 }
 
 function readStoredItems(storageKey) {

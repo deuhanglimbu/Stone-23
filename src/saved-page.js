@@ -1,4 +1,5 @@
 import './style.css';
+import { jsPDF } from 'jspdf';
 import { getStoredSavedOrderItems, saveSavedOrderItems } from './cart/cart.jsx';
 
 const app = document.querySelector('#app');
@@ -56,6 +57,54 @@ if (app) {
 
   window.__goBackToCreateOrder = () => {
     window.location.href = '/?openOrder=1';
+  };
+
+  window.__downloadSavedOrderPdf = () => {
+    if (!items.length) return;
+
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const maxTextWidth = pageWidth - 90;
+    let y = 48;
+
+    const addWrappedText = (rawText) => {
+      const text = String(rawText ?? '').trim();
+      if (!text) {
+        y += 10;
+        return;
+      }
+
+      const wrapped = doc.splitTextToSize(text, maxTextWidth);
+      wrapped.forEach((line) => {
+        if (y > pageHeight - 40) {
+          doc.addPage();
+          y = 48;
+        }
+        doc.text(line, 40, y);
+        y += 18;
+      });
+    };
+
+    addWrappedText('Saved Order');
+    addWrappedText('====================');
+
+    items.forEach((item, index) => {
+      const normalizedItem = typeof item === 'string'
+        ? { text: item, image: '', stoneName: 'Stone item' }
+        : {
+            text: item?.text || 'Stone item',
+            image: item?.image || '',
+            stoneName: item?.stoneName || 'Stone item'
+          };
+
+      addWrappedText(`Order ${index + 1}`);
+      addWrappedText(`Stone: ${normalizedItem.stoneName || 'Stone item'}`);
+      addWrappedText(String(normalizedItem.text || '').trim());
+      addWrappedText('');
+    });
+
+    doc.save('saved-order.pdf');
   };
 
   app.innerHTML = `
@@ -163,6 +212,7 @@ if (app) {
 
         <div class="saved-page-actions">
           <button class="secondary-btn saved-back-btn" type="button" onclick="window.__goBackToCreateOrder()">Back</button>
+          <button class="secondary-btn saved-pdf-btn" type="button" onclick="window.__downloadSavedOrderPdf()">PDF</button>
           <button class="primary-btn saved-cart-btn" type="button" onclick="window.__sendSavedOrderEmail()">Buy Now</button>
         </div>
       </section>
