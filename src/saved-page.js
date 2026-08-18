@@ -7,9 +7,8 @@ const app = document.querySelector('#app');
 if (app) {
   const items = getStoredSavedOrderItems();
 
-  window.__sendSavedOrderEmail = () => {
+  const buildOrderEmailBody = () => {
     const savedItems = getStoredSavedOrderItems();
-    const subject = encodeURIComponent('Stone Order Request');
     const formatOrderItem = (item, index) => {
       const normalized = typeof item === 'string'
         ? { text: item, stoneName: 'Stone item', image: '' }
@@ -36,16 +35,62 @@ if (app) {
       ].filter(Boolean).join('\n');
     };
 
-    const emailBody = [
+    return [
       'Stone Order Request',
       '==================',
       savedItems.map(formatOrderItem).join('\n\n--------------------\n\n'),
     ].filter(Boolean).join('\n\n');
+  };
+
+  window.__sendSavedOrderEmail = () => {
+    const emailBody = buildOrderEmailBody();
+    const recipient = 'tpjlimbu61@gmail.com';
+    const modal = document.getElementById('saved-order-email-modal');
+
+    if (modal) {
+      const toInput = document.getElementById('saved-order-email-to');
+      const ccInput = document.getElementById('saved-order-email-cc');
+      const subjectInput = document.getElementById('saved-order-email-subject');
+      const bodyInput = document.getElementById('saved-order-email-body');
+
+      if (toInput) toInput.value = recipient;
+      if (ccInput) ccInput.value = '';
+      if (subjectInput) subjectInput.value = 'Stone Order Request';
+      if (bodyInput) bodyInput.value = emailBody;
+
+      modal.classList.remove('hidden');
+      return;
+    }
 
     saveSavedOrderItems([]);
-    const recipient = 'tpjlimbu61@gmail.com';
+    const subject = encodeURIComponent('Stone Order Request');
     const mailto = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
     window.location.href = mailto;
+  };
+
+  window.__closeEmailComposer = () => {
+    const modal = document.getElementById('saved-order-email-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  };
+
+  window.__sendComposeEmail = () => {
+    const toInput = document.getElementById('saved-order-email-to');
+    const ccInput = document.getElementById('saved-order-email-cc');
+    const subjectInput = document.getElementById('saved-order-email-subject');
+    const bodyInput = document.getElementById('saved-order-email-body');
+
+    const to = (toInput?.value || '').trim();
+    const cc = (ccInput?.value || '').trim();
+    const subject = encodeURIComponent((subjectInput?.value || 'Stone Order Request').trim() || 'Stone Order Request');
+    const body = encodeURIComponent((bodyInput?.value || buildOrderEmailBody()).trim());
+    const recipient = to || 'tpjlimbu61@gmail.com';
+    const ccParam = cc ? `&cc=${encodeURIComponent(cc)}` : '';
+
+    saveSavedOrderItems([]);
+    window.__closeEmailComposer();
+    window.location.href = `mailto:${recipient}?subject=${subject}${ccParam}&body=${body}`;
   };
 
   const removeItemAt = (index) => {
@@ -216,6 +261,47 @@ if (app) {
           <button class="primary-btn saved-cart-btn" type="button" onclick="window.__sendSavedOrderEmail()">Buy Now</button>
         </div>
       </section>
+
+      <div class="saved-order-email-modal hidden" id="saved-order-email-modal" role="dialog" aria-modal="true">
+        <div class="saved-order-email-sheet">
+          <div class="saved-order-email-toolbar">
+            <div class="saved-order-email-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="saved-order-email-icons">
+              <button type="button" aria-label="Reply" class="saved-order-email-icon-btn">↩</button>
+              <button type="button" aria-label="Archive" class="saved-order-email-icon-btn">⤴</button>
+              <button type="button" aria-label="Send" class="saved-order-email-icon-btn send">➤</button>
+            </div>
+          </div>
+
+          <div class="saved-order-email-form">
+            <div class="saved-order-email-row">
+              <label>To:</label>
+              <input id="saved-order-email-to" type="email" value="tpjlimbu61@gmail.com" />
+            </div>
+            <div class="saved-order-email-row">
+              <label>Cc:</label>
+              <input id="saved-order-email-cc" type="text" value="" />
+            </div>
+            <div class="saved-order-email-row">
+              <label>Subject:</label>
+              <input id="saved-order-email-subject" type="text" value="Stone Order Request" />
+            </div>
+          </div>
+
+          <div class="saved-order-email-body-wrap">
+            <div class="saved-order-email-body" id="saved-order-email-body">${buildOrderEmailBody().replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+          </div>
+
+          <div class="saved-order-email-footer">
+            <button type="button" class="saved-order-email-cancel" onclick="window.__closeEmailComposer()">Close</button>
+            <button type="button" class="saved-order-email-send" onclick="window.__sendComposeEmail()">Send</button>
+          </div>
+        </div>
+      </div>
     </main>
   `;
 
