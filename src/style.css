@@ -1312,7 +1312,7 @@ html.modal-open {
   border-radius: 12px;
   padding: 0.85rem;
   display: grid;
-  grid-template-columns: minmax(180px, 240px) 1fr;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
   gap: 1rem;
   align-items: center;
 }
@@ -1335,6 +1335,9 @@ html.modal-open {
 
 .selected-stone-meta {
   margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .selected-stone-meta h4 {
@@ -1353,12 +1356,17 @@ html.modal-open {
   margin-top: 0.85rem;
   display: grid;
   gap: 0.45rem;
+  width: min(100%, 280px);
+  justify-self: start;
+  text-align: left;
+  align-items: start;
 }
 
 .upload-label {
   font-size: 0.78rem;
   font-weight: 700;
   color: #111827;
+  text-align: left;
 }
 
 .selected-stone-upload input[type="file"] {
@@ -1367,12 +1375,14 @@ html.modal-open {
   border-radius: 10px;
   background: #fff;
   padding: 0.6rem 0.7rem;
+  text-align: left;
 }
 
 .upload-status {
   color: #374151;
   font-size: 0.78rem;
   word-break: break-word;
+  text-align: left;
 }
 
 .buy-order-table {
@@ -1462,7 +1472,7 @@ html.modal-open {
 
 .sheet-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
   padding-top: 1.25rem;
@@ -1473,15 +1483,19 @@ html.modal-open {
 
 .sheet-actions .secondary-btn {
   position: static;
-  margin-right: auto;
+  margin-right: 0;
+  order: 1;
 }
 
 .sheet-actions .save-order-btn,
 .sheet-actions .primary-btn:last-child {
+  width: auto;
   min-width: 140px;
-  margin-left: 0;
+  max-width: 180px;
+  margin-left: auto;
   margin-right: 0;
   align-self: flex-end;
+  order: 2;
 }
 
 .cart-section {
@@ -1721,17 +1735,84 @@ html.modal-open {
     grid-template-columns: 1fr;
   }
 
+  .order-sheet-overlay {
+    padding: 0.75rem;
+  }
+
+  .order-sheet {
+    width: min(100%, 92vw);
+    padding: 1rem;
+  }
+
+  .order-sheet-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selected-stone-panel {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .selected-stone-upload {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .buy-order-file {
+    overflow-x: auto;
+  }
+
+  .buy-order-table {
+    min-width: 620px;
+  }
+
+  .buy-order-table th,
+  .buy-order-table td {
+    padding: 0.6rem 0.5rem;
+  }
+
   .sheet-actions {
     flex-wrap: wrap;
     justify-content: flex-end;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sheet-actions .secondary-btn,
+  .sheet-actions .save-order-btn,
+  .sheet-actions .primary-btn:last-child {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .sheet-actions .secondary-btn {
     margin-right: 0;
   }
+}
+
+@media (max-width: 480px) {
+  .order-sheet-overlay {
+    padding: 0.5rem;
+  }
 
   .order-sheet {
-    padding: 1rem;
+    width: min(100%, 95vw);
+    border-radius: 14px;
+  }
+
+  .selected-stone-preview {
+    height: 180px;
+  }
+
+  .buy-order-table {
+    min-width: 540px;
+  }
+
+  .order-row-input {
+    min-width: 80px;
   }
 }
 
