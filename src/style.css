@@ -1843,6 +1843,18 @@ html.modal-open {
   gap: 0.75rem;
 }
 
+.saved-order-download-tip {
+  margin: 0.35rem 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(59, 130, 246, 0.08);
+  color: #0f172a;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 .saved-back-btn {
   margin-right: auto;
 }
@@ -2281,23 +2293,32 @@ html.modal-open {
 }
 
 @media (max-width: 640px) {
+  .saved-page-shell {
+    padding: 0.35rem;
+  }
+
   .saved-page {
-    background: #f3f4f4;
-    border: 1px solid rgba(15, 23, 42, 0.12);
+    background: rgba(255, 255, 255, 0.38);
+    border: 2px solid #1ecbf1;
     border-radius: 18px;
     padding: 0.9rem 0.9rem 1rem;
+    min-height: 78vh;
+  }
+
+  .saved-page .section-header {
+    margin-bottom: 1.15rem;
   }
 
   .saved-page .section-header h2 {
-    font-size: 2.3rem;
-    line-height: 1.1;
+    font-size: clamp(2.3rem, 7vw, 4rem);
+    line-height: 1.02;
     margin: 0;
     color: #111827;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.05em;
   }
 
   .saved-page .cart-page-list {
-    margin: 0.6rem 0 0;
+    margin: 0.8rem 0 0;
     padding: 0;
     list-style: none;
     border: none;
@@ -2306,57 +2327,64 @@ html.modal-open {
 
   .saved-page .cart-page-item {
     display: grid;
-    grid-template-columns: 1.1rem 72px minmax(0, 1fr);
-    gap: 0.6rem 0.8rem;
-    align-items: flex-start;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.14);
+    grid-template-columns: 1.2rem 1.35rem 90px minmax(0, 1fr);
+    gap: 0.55rem 0.7rem;
+    align-items: start;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
   }
 
   .saved-page .remove-order-mark {
     grid-column: 1;
     grid-row: 1;
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.15rem;
+    height: 1.15rem;
     border: 1px solid rgba(15, 23, 42, 0.2);
-    background: transparent;
+    background: rgba(255, 255, 255, 0.75);
     color: #111827;
-    font-size: 0.9rem;
-    margin-top: 0.2rem;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
   }
 
   .saved-page .cart-page-number {
     grid-column: 2;
     grid-row: 1;
-    display: none;
+    display: block;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: #111827;
+    font-weight: 700;
+    margin-top: 0.1rem;
   }
 
   .saved-page .cart-page-image-stack {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    width: 72px;
-    min-width: 72px;
-    margin-top: 0.15rem;
+    grid-column: 3;
+    grid-row: 1;
+    width: 90px;
+    min-width: 90px;
+    margin-top: 0.1rem;
   }
 
   .saved-page .cart-page-thumb {
-    width: 72px;
-    height: 72px;
-    border-radius: 8px;
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
   }
 
   .saved-page .cart-page-text-wrap {
-    grid-column: 3;
-    grid-row: 1 / span 2;
+    grid-column: 4;
+    grid-row: 1;
     display: block;
+    min-width: 0;
   }
 
   .saved-page .order-summary-text {
-    gap: 0.1rem;
+    gap: 0.08rem;
   }
 
   .saved-page .order-summary-title {
-    font-size: 1.1rem;
+    font-size: 1.08rem;
     font-weight: 800;
     color: #111827;
     margin-bottom: 0.15rem;
@@ -2367,6 +2395,7 @@ html.modal-open {
     font-size: 1rem;
     color: #111827;
     font-weight: 500;
+    line-height: 1.5;
   }
 
   .saved-page-actions {
@@ -2374,7 +2403,7 @@ html.modal-open {
     display: grid;
     grid-template-columns: 1fr 1fr 1.3fr;
     gap: 0.8rem;
-    margin-top: 1.2rem;
+    margin-top: 1.1rem;
     width: 100%;
     left: auto;
     right: auto;
@@ -2385,9 +2414,9 @@ html.modal-open {
   .saved-page-actions .primary-btn {
     width: 100%;
     min-width: 0;
-    min-height: 2.8rem;
+    min-height: 3rem;
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: 1.02rem;
     font-weight: 700;
     padding: 0.8rem 0.75rem;
     margin: 0;
@@ -2401,10 +2430,10 @@ html.modal-open {
   }
 
   .saved-page-actions .saved-cart-btn {
-    background: #5feaf4;
+    background: #63eff7;
     color: #111827;
     border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: none;
+    box-shadow: 0 8px 18px rgba(99, 239, 247, 0.28);
   }
 }
 

@@ -164,7 +164,7 @@ app.innerHTML = `
           </div>
           <div class="frame-card" data-filters="granit category">
             <div class="frame-inner">
-              <img src="https://www.criteriofavorito.com/images/data/catalogue/5/granito-pedras-salgadas1.jpg" alt="Granit stone" />
+              <img src="https://www.criteriofavorito.com/images/data/catalogue/5/granito-pedras-salgadas1.jpg" alt="Granit stone sample 2" />
               <p class="frame-caption">Granit</p>
             </div>
           </div>
@@ -255,6 +255,14 @@ app.innerHTML = `
           <div class="product-card__body">
             <h3>Luxury Bathtub</h3>
             <p>Stone-crafted bathroom elements designed for comfort, longevity and style.</p>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80" alt="Granite texture product" />
+          <div class="product-card__body">
+            <h3>Granite Texture</h3>
+            <p>Natural granitic finish with a dense, elegant appearance for premium surfaces.</p>
           </div>
         </article>
       </div>
@@ -553,7 +561,7 @@ function addOrderToCart() {
     .filter(Boolean);
 
   if (!orderRows.length) {
-    window.location.href = '/saved.html';
+    window.location.assign('/saved.html');
     return;
   }
 
@@ -568,7 +576,7 @@ function addOrderToCart() {
 
   saveCartItems(nextCartItems);
   saveSavedOrderItems(nextSavedItems);
-  window.location.href = '/saved.html';
+  window.location.assign('/saved.html');
 }
 
 function hasValidOrderEntry() {
@@ -1244,10 +1252,19 @@ async function sendOrderEmail(forceRecipient = null) {
   const body = encodeURIComponent(emailBody);
 
   saveCartItems([]);
-  window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, '_blank');
+
   if (pdfUrl) {
-    window.open(pdfUrl, '_blank');
+    try {
+      const pdfWindow = window.open(pdfUrl, '_blank');
+      if (pdfWindow) {
+        pdfWindow.opener = null;
+      }
+    } catch (error) {
+      // Android browsers can block popup windows, so we fall back to direct navigation below.
+    }
   }
+
+  window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
 }
 
 if (navCartBtn) {

@@ -68,6 +68,37 @@ if (app) {
     window.location.href = mailto;
   };
 
+  window.__downloadAndOpenEmailComposer = () => {
+    if (!items.length) return;
+
+    window.__downloadSavedOrderPdf();
+
+    const modal = document.getElementById('saved-order-email-modal');
+    if (modal) {
+      const toInput = document.getElementById('saved-order-email-to');
+      const ccInput = document.getElementById('saved-order-email-cc');
+      const subjectInput = document.getElementById('saved-order-email-subject');
+      const bodyInput = document.getElementById('saved-order-email-body');
+
+      if (toInput) toInput.value = 'tpjlimbu61@gmail.com';
+      if (ccInput) ccInput.value = '';
+      if (subjectInput) subjectInput.value = 'Stone Order Request';
+      if (bodyInput) bodyInput.value = buildOrderEmailBody();
+
+      setTimeout(() => {
+        modal.classList.remove('hidden');
+      }, 500);
+      return;
+    }
+
+    setTimeout(() => {
+      const emailBody = buildOrderEmailBody();
+      const subject = encodeURIComponent('Stone Order Request');
+      const recipient = 'tpjlimbu61@gmail.com';
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
+    }, 800);
+  };
+
   window.__closeEmailComposer = () => {
     const modal = document.getElementById('saved-order-email-modal');
     if (modal) {
@@ -258,9 +289,13 @@ if (app) {
         <div class="saved-page-actions">
           <button class="secondary-btn saved-back-btn" type="button" onclick="window.__goBackToCreateOrder()">Back</button>
           <button class="secondary-btn saved-pdf-btn" type="button" onclick="window.__downloadSavedOrderPdf()">PDF</button>
-          <button class="primary-btn saved-cart-btn" type="button" onclick="window.__sendSavedOrderEmail()">Buy Now</button>
+          <button class="primary-btn saved-cart-btn" type="button" onclick="window.__downloadAndOpenEmailComposer()">Buy Now</button>
         </div>
       </section>
+
+      <div class="saved-order-download-tip" id="saved-order-download-tip">
+        Download the PDF first, then tap Buy Now to open Gmail and send the order.
+      </div>
 
       <div class="saved-order-email-modal hidden" id="saved-order-email-modal" role="dialog" aria-modal="true">
         <div class="saved-order-email-sheet">
